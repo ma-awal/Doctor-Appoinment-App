@@ -12,7 +12,7 @@ export const AppProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://doctor-appointment-app-4d5o.onrender.com",
+        "https://doctor-appointment-app-4d5o.onrender.com/api/appointments",
         formData
       );
       toast.success(response.data.message);
