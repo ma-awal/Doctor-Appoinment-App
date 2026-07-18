@@ -11,16 +11,16 @@ const app = express();
 
 app.use(cors());
 
-app.options("*", cors());
-
 app.use(express.json());
 
 app.get("/api/test", (req, res) => {
   res.json({ message: "API is working perfectly!" });
 });
 
+// ৩. আপনার মেইন রুট
 app.use("/api/appointments", appointmentRoutes);
 
+// ৪. হোম রুট
 app.get("/", (req, res) => {
   res.send("CarePulse Server is Live...");
 });
