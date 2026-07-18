@@ -9,20 +9,35 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+  next();
+});
 
 app.use(express.json());
 
-app.get("/api/test", (req, res) => {
-  res.json({ message: "API is working perfectly!" });
+app.use((req, res, next) => {
+  console.log(`${req.method} request received at: ${req.url}`);
+  next();
 });
 
-// ৩. আপনার মেইন রুট
+app.get("/api/test", (req, res) => {
+  res.status(200).json({ success: true, message: "API is fully working!" });
+});
+
 app.use("/api/appointments", appointmentRoutes);
 
-// ৪. হোম রুট
 app.get("/", (req, res) => {
-  res.send("CarePulse Server is Live...");
+  res.status(200).send("CarePulse Server is Live and Working Fine!");
 });
 
 const PORT = process.env.PORT || 5000;
