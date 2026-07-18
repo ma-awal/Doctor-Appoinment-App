@@ -1,0 +1,123 @@
+/* --- Hero Section Specifics --- */
+.hero-clean-wrapper {
+  background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+  position: relative;
+  overflow: hidden;
+  padding-top: 40px;
+}
+
+.hero-title {
+  line-height: 1.1;
+  font-size: 4rem; /* Display-3 equivalent */
+}
+
+.italic-font {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.badge-trusted {
+  background: white;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* --- Image & Decorations --- */
+.hero-img-container {
+  position: relative;
+  display: inline-block;
+}
+
+.doctor-hero-img {
+  position: relative;
+  z-index: 2;
+  border-bottom: 8px solid var(--primary-blue);
+  border-radius: 20px;
+  max-width: 90%;
+}
+
+.hero-blob {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background: rgba(37, 99, 235, 0.12);
+  filter: blur(50px);
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.floating-card {
+  position: absolute;
+  bottom: 12%;
+  left: -5%;
+  background: white;
+  padding: 15px 25px;
+  border-radius: 15px;
+  z-index: 3;
+  border-left: 5px solid var(--primary-blue);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  animation: floatEffect 4s ease-in-out infinite;
+}
+
+@keyframes floatEffect {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* --- Home Specialties Cards --- */
+.glass-card {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+}
+
+.icon-box {
+  width: 75px;
+  height: 75px;
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--primary-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.process-img {
+  border: 12px solid white;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 991px) {
+  .hero-clean-wrapper,
+  .hero-title {
+    text-align: center;
+  }
+  .floating-card {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .hero-title {
+    font-size: 2.8rem;
+  }
+}

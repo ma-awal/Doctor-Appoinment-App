@@ -1,9 +1,9 @@
-import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Dashboard from './pages/Dashboard'
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home/Home";
+import About from "./pages/About/About";
+import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -16,7 +16,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
       <footer className="py-4 text-center border-top mt-5 bg-white">
-        <p className="text-muted mb-0">&copy; 2024 CarePulse Medical Group. All rights reserved.</p>
+        <p className="text-muted mb-0">
+          &copy; 2024 CarePulse Medical Group. All rights reserved.
+        </p>
       </footer>
     </>
   );
