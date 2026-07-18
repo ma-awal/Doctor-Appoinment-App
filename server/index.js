@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://doctor-appoinment-app-4d5o.onrender.com",
+    origin: "https://doctor-appoinment-app-nine.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
