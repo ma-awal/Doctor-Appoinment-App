@@ -9,7 +9,7 @@ export const AppProvider = ({ children }) => {
   const [appointments, setAppointments] = useState([]);
 
   const API_URL =
-    "https://doctor-appointment-app-4d5o.onrender.com/api/appointments";
+    "https://doctor-appoinment-app-4d5o.onrender.com/api/appointments";
 
   const bookAppointment = async (formData) => {
     setLoading(true);
