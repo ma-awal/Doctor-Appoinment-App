@@ -11,7 +11,10 @@ export const AppProvider = ({ children }) => {
   const bookAppointment = async (formData) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/appointments", formData);
+      const response = await axios.post(
+        "https://doctor-appointment-app-4d5o.onrender.com",
+        formData
+      );
       toast.success(response.data.message);
       return true;
     } catch (error) {
@@ -25,7 +28,9 @@ export const AppProvider = ({ children }) => {
   const fetchAppointments = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/appointments");
+      const response = await axios.get(
+        "http://localhost:5000/api/appointments"
+      );
       setAppointments(response.data.data);
     } catch (error) {
       console.error("Error fetching data", error);
@@ -35,7 +40,9 @@ export const AppProvider = ({ children }) => {
   };
 
   return (
-    <AppContext.Provider value={{ bookAppointment, appointments, fetchAppointments, loading  }}>
+    <AppContext.Provider
+      value={{ bookAppointment, appointments, fetchAppointments, loading }}
+    >
       {children}
     </AppContext.Provider>
   );
