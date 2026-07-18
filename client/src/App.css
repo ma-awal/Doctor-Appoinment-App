@@ -1,0 +1,63 @@
+ /* Custom Premium Theme */
+:root {
+  --primary-color: #2563eb;
+  --soft-bg: #f8fafc;
+  --text-dark: #1e293b;
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--soft-bg);
+  color: var(--text-dark);
+}
+
+/* Premium Card Style */
+.custom-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+  background: white;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Minimal Button */
+.btn-primary {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+/* Soft Input Fields */
+.form-control {
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  background-color: #fcfcfc;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  border-color: var(--primary-color);
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
