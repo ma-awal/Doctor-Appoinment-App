@@ -11,22 +11,22 @@ export const AppProvider = ({ children }) => {
   const API_URL =
     "https://doctor-appoinment-app-4d5o.onrender.com/api/appointments";
 
+  const getAuthHeader = () => {
+    const token = localStorage.getItem("token");
+    return { headers: { Authorization: `Bearer ${token}` } };
+  };
+
   const bookAppointment = async (formData) => {
     setLoading(true);
-    const token = localStorage.getItem("token");
     try {
-      const response = await axios.post(
-        API_URL,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-        formData
-      );
+      const response = await axios.post(API_URL, formData, getAuthHeader());
       toast.success(response.data.message);
       await fetchAppointments();
       return true;
     } catch (error) {
-      toast.error(error.response?.data?.message || "Booking Failed");
+      toast.error(
+        error.response?.data?.message || "Booking Failed. Please login again."
+      );
       return false;
     } finally {
       setLoading(false);
@@ -34,65 +34,57 @@ export const AppProvider = ({ children }) => {
   };
 
   const fetchAppointments = async () => {
-    setLoading(true);
     const token = localStorage.getItem("token");
     if (!token) return;
+
+    setLoading(true);
     try {
-      const response = await axios.get(API_URL, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(API_URL, getAuthHeader());
       setAppointments(response.data.data);
     } catch (error) {
       console.error("Error fetching data", error);
-      if (error.response?.status === 401) logout();
     } finally {
       setLoading(false);
     }
   };
 
   const updateAppointmentStatus = async (id, status) => {
-    const token = localStorage.getItem("token");
     try {
       const res = await axios.patch(
         `${API_URL}/${id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-        { status }
+        { status },
+        getAuthHeader()
       );
       toast.success(res.data.message);
       fetchAppointments();
     } catch (err) {
-      toast.error("Update failed");
-    }
-  };
-
-  const deleteAppointment = async (id) => {
-    if (window.confirm("Are you sure you want to delete this appointment?")) {
-      try {
-        const res = await axios.delete(`${API_URL}/${id}`);
-        toast.success(res.data.message);
-        fetchAppointments();
-      } catch (err) {
-        toast.error("Delete failed");
-      }
+      toast.error("Update failed. You might not have permission.");
     }
   };
 
   const completeVisit = async (id, medicalData) => {
-    const token = localStorage.getItem("token");
     try {
       const res = await axios.patch(
         `${API_URL}/complete/${id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-        medicalData
+        medicalData,
+        getAuthHeader()
       );
       toast.success(res.data.message);
       fetchAppointments();
     } catch (err) {
-      toast.error("Failed to add report");
+      toast.error("Failed to complete visit.");
+    }
+  };
+
+  const deleteAppointment = async (id) => {
+    if (window.confirm("Are you sure?")) {
+      try {
+        await axios.delete(`${API_URL}/${id}`, getAuthHeader());
+        toast.success("Deleted successfully");
+        fetchAppointments();
+      } catch (err) {
+        toast.error("Delete failed");
+      }
     }
   };
 
