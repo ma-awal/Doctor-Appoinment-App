@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import appointmentRoutes from "./routes/appointmentRoutes.js";
-
+import authRoutes from './routes/authRoutes.js';
 dotenv.config();
 connectDB();
 
@@ -28,7 +28,7 @@ app.get("/api/test", (req, res) => {
 });
 
 app.use("/api/appointments", appointmentRoutes);
-
+app.use('/api/auth', authRoutes);
 app.get("/", (req, res) => {
   res.status(200).send("CarePulse Server is Live and Working Fine!");
 });

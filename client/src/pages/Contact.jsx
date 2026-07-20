@@ -1,12 +1,13 @@
 import { useState, useContext } from 'react';
 import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
 import { AppContext } from '../context/AppContext';
+import { AuthContext } from '../context/AuthContext'; // ১. AuthContext ইমপোর্ট করা হয়েছে
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaUserMd } from 'react-icons/fa';
 
 const Contact = () => {
   const { bookAppointment, loading } = useContext(AppContext);
-  
- 
+  const { user } = useContext(AuthContext); // ২. ইউজার ডেটা নেওয়া হয়েছে
+
   const [formData, setFormData] = useState({
     fullName: '', 
     email: '', 
@@ -28,15 +29,19 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-  
     if (!formData.fullName || !formData.phone || !formData.age || !formData.gender || !formData.doctorName || !formData.date) {
       alert("Please fill in all mandatory fields marked with *");
       return;
     }
+
+    // ৩. ইউজারের আইডি সহ ডেটা প্রিপেয়ার করা
+    const finalAppointmentData = {
+      ...formData,
+      patientId: user?.id // ব্যাকএন্ডে এটি দিয়েই আমরা পেশেন্ট ট্র্যাক করব
+    };
     
-    const success = await bookAppointment(formData);
+    const success = await bookAppointment(finalAppointmentData);
     if (success) {
-      
       setFormData({ fullName: '', email: '', phone: '', age: '', gender: '', doctorName: '', date: '', reason: '' });
     }
   };
@@ -48,7 +53,7 @@ const Contact = () => {
           <Col lg={11}>
             <Card className="custom-card p-0 overflow-hidden border-0 shadow-lg">
               <Row className="g-0">
-               
+                {/* Left Side: Contact Info */}
                 <Col md={4} className="bg-primary text-white p-5 d-flex flex-column justify-content-center">
                   <div className="mb-5">
                     <FaUserMd size={50} className="mb-4" />
@@ -76,7 +81,7 @@ const Contact = () => {
                   </div>
                 </Col>
 
-                {/* ডান পাশ: এক্সপান্ডেড ফর্ম */}
+                {/* Right Side: Form */}
                 <Col md={8} className="p-5 bg-white">
                   <h3 className="fw-bold mb-4 playfair">Patient Information</h3>
                   <Form onSubmit={handleSubmit}>

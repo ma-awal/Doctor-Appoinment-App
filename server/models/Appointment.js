@@ -17,7 +17,9 @@ const appointmentSchema = new mongoose.Schema({
     }, 
     prescription: { type: String, default: "" },  
 testReports: { type: String, default: "" },  
-completedAt: { type: Date }
+completedAt: { type: Date },
+patientId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+cost: { type: Number, default: 0 }, 
   }, { timestamps: true }
 );
 
