@@ -8,16 +8,22 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState([]);
 
- 
-  const API_URL = "https://doctor-appoinment-app-4d5o.onrender.com/api/appointments";
+  const API_URL =
+    "https://doctor-appoinment-app-4d5o.onrender.com/api/appointments";
 
- 
   const bookAppointment = async (formData) => {
     setLoading(true);
+    const token = localStorage.getItem("token");
     try {
-      const response = await axios.post(API_URL, formData);
+      const response = await axios.post(
+        API_URL,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+        formData
+      );
       toast.success(response.data.message);
-      await fetchAppointments();  
+      await fetchAppointments();
       return true;
     } catch (error) {
       toast.error(error.response?.data?.message || "Booking Failed");
@@ -26,11 +32,14 @@ export const AppProvider = ({ children }) => {
       setLoading(false);
     }
   };
- 
+
   const fetchAppointments = async () => {
     setLoading(true);
+    const token = localStorage.getItem("token");
     try {
-      const response = await axios.get(API_URL);
+      const response = await axios.get(API_URL, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setAppointments(response.data.data);
     } catch (error) {
       console.error("Error fetching data", error);
@@ -39,23 +48,26 @@ export const AppProvider = ({ children }) => {
     }
   };
 
- 
   const updateAppointmentStatus = async (id, status) => {
+    const token = localStorage.getItem("token");
     try {
- 
-      const res = await axios.patch(`${API_URL}/${id}`, { status });
+      const res = await axios.patch(
+        `${API_URL}/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+        { status }
+      );
       toast.success(res.data.message);
-      fetchAppointments();  
+      fetchAppointments();
     } catch (err) {
       toast.error("Update failed");
     }
   };
 
- 
   const deleteAppointment = async (id) => {
     if (window.confirm("Are you sure you want to delete this appointment?")) {
       try {
-     
         const res = await axios.delete(`${API_URL}/${id}`);
         toast.success(res.data.message);
         fetchAppointments();
@@ -65,10 +77,16 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-
   const completeVisit = async (id, medicalData) => {
+    const token = localStorage.getItem("token");
     try {
-      const res = await axios.patch(`${API_URL}/complete/${id}`, medicalData);
+      const res = await axios.patch(
+        `${API_URL}/complete/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+        medicalData
+      );
       toast.success(res.data.message);
       fetchAppointments();
     } catch (err) {
@@ -76,20 +94,16 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-
-
-
-
   return (
     <AppContext.Provider
-      value={{ 
-        bookAppointment, 
-        appointments, 
-        fetchAppointments, 
-        loading, 
-        updateAppointmentStatus, 
-        deleteAppointment ,
-        completeVisit
+      value={{
+        bookAppointment,
+        appointments,
+        fetchAppointments,
+        loading,
+        updateAppointmentStatus,
+        deleteAppointment,
+        completeVisit,
       }}
     >
       {children}
