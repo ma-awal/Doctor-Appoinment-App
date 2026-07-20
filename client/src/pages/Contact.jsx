@@ -1,17 +1,18 @@
 import { useState, useContext } from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { AppContext } from "../context/AppContext";
-import { AuthContext } from "../context/AuthContext"; // ১. AuthContext ইমপোর্ট করা হয়েছে
+import { AuthContext } from "../context/AuthContext";
 import {
   FaPhoneAlt,
   FaEnvelope,
   FaMapMarkerAlt,
   FaUserMd,
 } from "react-icons/fa";
+import toast from "react-hot-toast"; // toast ইমপোর্ট নিশ্চিত করুন
 
 const Contact = () => {
   const { bookAppointment, loading } = useContext(AppContext);
-  const { user } = useContext(AuthContext); // ২. ইউজার ডেটা নেওয়া হয়েছে
+  const { user } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -34,24 +35,24 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      !formData.fullName ||
-      !formData.phone ||
-      !formData.age ||
-      !formData.gender ||
-      !formData.doctorName ||
-      !formData.date
-    ) {
-      alert("Please fill in all mandatory fields marked with *");
+    // ১. চেক করুন ইউজার লগইন আছে কিনা
+    if (!user) {
+      toast.error("Please login first to book an appointment!");
       return;
     }
 
+    // ২. ডাটাবেস এর জন্য ডেটা প্রিপেয়ার করা (Age কে অবশ্যই নাম্বার হতে হবে)
     const finalAppointmentData = {
       ...formData,
-      patientId: user?.id || user?._id,
+      age: Number(formData.age), // এটি নিশ্চিত করুন
+      patientId: user.id || user._id, // id এবং _id দুইটাই চেক করা হচ্ছে
     };
 
+    // ৩. ব্রাউজার কনসোলে চেক করার জন্য (F12 চেপে Console এ এটি দেখুন)
+    console.log("Submitting this data:", finalAppointmentData);
+
     const success = await bookAppointment(finalAppointmentData);
+
     if (success) {
       setFormData({
         fullName: "",
@@ -73,7 +74,6 @@ const Contact = () => {
           <Col lg={11}>
             <Card className="custom-card p-0 overflow-hidden border-0 shadow-lg">
               <Row className="g-0">
-                {/* Left Side: Contact Info */}
                 <Col
                   md={4}
                   className="bg-primary text-white p-5 d-flex flex-column justify-content-center"
@@ -82,44 +82,34 @@ const Contact = () => {
                     <FaUserMd size={50} className="mb-4" />
                     <h2 className="fw-bold playfair">Book Your Visit</h2>
                     <p className="opacity-75">
-                      Fill out the form and our team will contact you for
-                      confirmation.
+                      Join {user?.name || "us"} for a better health experience.
                     </p>
                   </div>
-
                   <div className="d-flex align-items-center mb-4">
-                    <div className="bg-white bg-opacity-25 p-3 rounded-circle me-3">
-                      <FaPhoneAlt />
-                    </div>
+                    <FaPhoneAlt className="me-3" />
                     <span>+880 1234 567 890</span>
                   </div>
                   <div className="d-flex align-items-center mb-4">
-                    <div className="bg-white bg-opacity-25 p-3 rounded-circle me-3">
-                      <FaEnvelope />
-                    </div>
+                    <FaEnvelope className="me-3" />
                     <span>support@carepulse.com</span>
                   </div>
                   <div className="d-flex align-items-center">
-                    <div className="bg-white bg-opacity-25 p-3 rounded-circle me-3">
-                      <FaMapMarkerAlt />
-                    </div>
-                    <span>Dhanmondi, Dhaka, Bangladesh</span>
+                    <FaMapMarkerAlt className="me-3" />
+                    <span>Dhaka, Bangladesh</span>
                   </div>
                 </Col>
 
-                {/* Right Side: Form */}
                 <Col md={8} className="p-5 bg-white">
                   <h3 className="fw-bold mb-4 playfair">Patient Information</h3>
                   <Form onSubmit={handleSubmit}>
                     <Row>
-                      {/* Full Name */}
                       <Col md={12} className="mb-3">
                         <Form.Label className="fw-semibold">
                           Full Name*
                         </Form.Label>
                         <Form.Control
                           type="text"
-                          placeholder="Enter patient's full name"
+                          placeholder="Full Name"
                           required
                           value={formData.fullName}
                           onChange={(e) =>
@@ -130,15 +120,11 @@ const Contact = () => {
                           }
                         />
                       </Col>
-
-                      {/* Email & Phone */}
                       <Col md={6} className="mb-3">
-                        <Form.Label className="fw-semibold">
-                          Email Address*
-                        </Form.Label>
+                        <Form.Label className="fw-semibold">Email*</Form.Label>
                         <Form.Control
                           type="email"
-                          placeholder="name@example.com"
+                          placeholder="Email"
                           required
                           value={formData.email}
                           onChange={(e) =>
@@ -147,12 +133,10 @@ const Contact = () => {
                         />
                       </Col>
                       <Col md={6} className="mb-3">
-                        <Form.Label className="fw-semibold">
-                          Phone Number*
-                        </Form.Label>
+                        <Form.Label className="fw-semibold">Phone*</Form.Label>
                         <Form.Control
                           type="text"
-                          placeholder="+880 1XXX XXX XXX"
+                          placeholder="Phone"
                           required
                           value={formData.phone}
                           onChange={(e) =>
@@ -160,15 +144,11 @@ const Contact = () => {
                           }
                         />
                       </Col>
-
-                      {/* Age & Gender */}
                       <Col md={6} className="mb-3">
-                        <Form.Label className="fw-semibold">
-                          Patient Age*
-                        </Form.Label>
+                        <Form.Label className="fw-semibold">Age*</Form.Label>
                         <Form.Control
                           type="number"
-                          placeholder="Enter age"
+                          placeholder="Age"
                           required
                           value={formData.age}
                           onChange={(e) =>
@@ -185,17 +165,14 @@ const Contact = () => {
                             setFormData({ ...formData, gender: e.target.value })
                           }
                         >
-                          <option value="">Select Gender</option>
+                          <option value="">Select</option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
-                          <option value="Other">Other</option>
                         </Form.Select>
                       </Col>
-
-                      {/* Doctor & Date */}
                       <Col md={6} className="mb-3">
                         <Form.Label className="fw-semibold">
-                          Select Specialist*
+                          Specialist*
                         </Form.Label>
                         <Form.Select
                           required
@@ -207,7 +184,7 @@ const Contact = () => {
                             })
                           }
                         >
-                          <option value="">Choose a doctor...</option>
+                          <option value="">Choose...</option>
                           {doctors.map((doc, i) => (
                             <option key={i} value={doc}>
                               {doc}
@@ -216,9 +193,7 @@ const Contact = () => {
                         </Form.Select>
                       </Col>
                       <Col md={6} className="mb-3">
-                        <Form.Label className="fw-semibold">
-                          Appointment Date*
-                        </Form.Label>
+                        <Form.Label className="fw-semibold">Date*</Form.Label>
                         <Form.Control
                           type="date"
                           required
@@ -228,16 +203,13 @@ const Contact = () => {
                           }
                         />
                       </Col>
-
-                      {/* Reason for Visit */}
                       <Col md={12} className="mb-4">
                         <Form.Label className="fw-semibold">
-                          Reason for Visit (Optional)
+                          Symptoms
                         </Form.Label>
                         <Form.Control
                           as="textarea"
-                          rows={3}
-                          placeholder="Briefly describe your symptoms"
+                          rows={2}
                           value={formData.reason}
                           onChange={(e) =>
                             setFormData({ ...formData, reason: e.target.value })
@@ -245,15 +217,12 @@ const Contact = () => {
                         />
                       </Col>
                     </Row>
-
                     <Button
                       type="submit"
                       className="btn-primary w-100 py-3 shadow-lg fw-bold"
                       disabled={loading}
                     >
-                      {loading
-                        ? "Processing Booking..."
-                        : "Confirm Appointment"}
+                      {loading ? "Processing..." : "Confirm Appointment"}
                     </Button>
                   </Form>
                 </Col>
