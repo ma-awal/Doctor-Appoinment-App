@@ -65,6 +65,21 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+
+  const completeVisit = async (id, medicalData) => {
+    try {
+      const res = await axios.patch(`${API_URL}/complete/${id}`, medicalData);
+      toast.success(res.data.message);
+      fetchAppointments();
+    } catch (err) {
+      toast.error("Failed to add report");
+    }
+  };
+
+
+
+
+
   return (
     <AppContext.Provider
       value={{ 
@@ -73,7 +88,8 @@ export const AppProvider = ({ children }) => {
         fetchAppointments, 
         loading, 
         updateAppointmentStatus, 
-        deleteAppointment 
+        deleteAppointment ,
+        completeVisit
       }}
     >
       {children}

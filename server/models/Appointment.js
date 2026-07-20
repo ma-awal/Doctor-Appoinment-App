@@ -15,6 +15,9 @@ const appointmentSchema = new mongoose.Schema({
       enum: ['Pending', 'Confirmed', 'Cancelled', 'Completed'], 
       default: 'Pending' 
     }, 
+    prescription: { type: String, default: "" },  
+testReports: { type: String, default: "" },  
+completedAt: { type: Date }
   }, { timestamps: true }
 );
 

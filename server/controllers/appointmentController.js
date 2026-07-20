@@ -79,3 +79,25 @@ export const deleteAppointment = async (req, res) => {
     res.status(400).json({ success: false, error: error.message });
   }
 };
+
+
+// @desc    Add Medical Record & Complete Appointment
+// @route   PATCH /api/appointments/complete/:id
+export const completeAppointment = async (req, res) => {
+  try {
+    const { prescription, testReports } = req.body;
+    const appointment = await Appointment.findByIdAndUpdate(
+      req.params.id,
+      { 
+        prescription, 
+        testReports, 
+        status: 'Completed',
+        completedAt: new Date()
+      },
+      { new: true }
+    );
+    res.status(200).json({ success: true, message: "Visit completed & report added!", data: appointment });
+  } catch (error) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+};
