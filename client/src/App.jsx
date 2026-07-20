@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
-import Home from './pages/Home/index';
-import About from './pages/About/index';
+import Home from './pages/Home/Home';
+import About from './pages/About/About';
 import Dashboard from './pages/Dashboard';
 import Contact from './pages/Contact';
 import Login from './pages/Auth/Login';
@@ -24,7 +24,8 @@ function App() {
       
         <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/contact" element={user ? <Contact /> : <Navigate to="/login" />} />
-      </Row>
+       
+      </Routes>
       <footer className="py-4 text-center border-top bg-white">
         <p className="text-muted small">&copy; 2024 CarePulse Medical Group. All rights reserved.</p>
       </footer>

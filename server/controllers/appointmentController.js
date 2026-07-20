@@ -37,7 +37,14 @@ export const createAppointment = async (req, res) => {
 // @route   GET /api/appointments
 export const getAppointments = async (req, res) => {
   try {
-    const appointments = await Appointment.find().sort({ createdAt: -1 });
+    let query = {};
+    
+  
+    if (req.user.role !== 'admin') {
+      query = { patientId: req.user.id };
+    }
+
+    const appointments = await Appointment.find(query).sort({ createdAt: -1 });
     res.status(200).json({ success: true, data: appointments });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -85,12 +92,13 @@ export const deleteAppointment = async (req, res) => {
 // @route   PATCH /api/appointments/complete/:id
 export const completeAppointment = async (req, res) => {
   try {
-    const { prescription, testReports } = req.body;
+    const { prescription, testReports, cost } = req.body;  
     const appointment = await Appointment.findByIdAndUpdate(
       req.params.id,
       { 
         prescription, 
         testReports, 
+        cost,
         status: 'Completed',
         completedAt: new Date()
       },
