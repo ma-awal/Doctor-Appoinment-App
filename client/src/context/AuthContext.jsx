@@ -10,7 +10,6 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const navigate = useNavigate();
 
-  
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) setUser(JSON.parse(savedUser));
@@ -18,23 +17,31 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const res = await axios.post("https://doctor-appoinment-app-4d5o.onrender.com/api/auth/login", { email, password });
+      const res = await axios.post(
+        "https://doctor-appoinment-app-4d5o.onrender.com/api/auth/login",
+        { email, password }
+      );
       if (res.data.success) {
         setToken(res.data.token);
+
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.user));
-        toast.success("Welcome back, " + res.data.user.name);
+
+        toast.success("Login Successful!");
         navigate("/dashboard");
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || "Login failed");
+      toast.error("Login failed. Check credentials.");
     }
   };
 
   const register = async (userData) => {
     try {
-      const res = await axios.post("https://doctor-appoinment-app-4d5o.onrender.com/api/auth/register", userData);
+      const res = await axios.post(
+        "https://doctor-appoinment-app-4d5o.onrender.com/api/auth/register",
+        userData
+      );
       if (res.data.success) {
         toast.success("Registration successful! Please login.");
         navigate("/login");
