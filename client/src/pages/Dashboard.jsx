@@ -24,6 +24,7 @@ import {
   FaEye,
   FaSearch,
   FaUserInjured,
+  FaClock,
 } from "react-icons/fa";
 import CompleteVisitModal from "../components/CompleteVisitModal";
 
