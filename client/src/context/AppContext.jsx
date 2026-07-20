@@ -8,17 +8,16 @@ export const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState([]);
 
-  const API_URL =
-    "https://doctor-appoinment-app-4d5o.onrender.com/api/appointments";
+ 
+  const API_URL = "https://doctor-appointment-app-4d5o.onrender.com/api/appointments";
 
+ 
   const bookAppointment = async (formData) => {
     setLoading(true);
     try {
       const response = await axios.post(API_URL, formData);
       toast.success(response.data.message);
-
-      await fetchAppointments();
-
+      await fetchAppointments();  
       return true;
     } catch (error) {
       toast.error(error.response?.data?.message || "Booking Failed");
@@ -27,7 +26,7 @@ export const AppProvider = ({ children }) => {
       setLoading(false);
     }
   };
-
+ 
   const fetchAppointments = async () => {
     setLoading(true);
     try {
@@ -40,9 +39,42 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+ 
+  const updateAppointmentStatus = async (id, status) => {
+    try {
+ 
+      const res = await axios.patch(`${API_URL}/${id}`, { status });
+      toast.success(res.data.message);
+      fetchAppointments();  
+    } catch (err) {
+      toast.error("Update failed");
+    }
+  };
+
+ 
+  const deleteAppointment = async (id) => {
+    if (window.confirm("Are you sure you want to delete this appointment?")) {
+      try {
+     
+        const res = await axios.delete(`${API_URL}/${id}`);
+        toast.success(res.data.message);
+        fetchAppointments();
+      } catch (err) {
+        toast.error("Delete failed");
+      }
+    }
+  };
+
   return (
     <AppContext.Provider
-      value={{ bookAppointment, appointments, fetchAppointments, loading }}
+      value={{ 
+        bookAppointment, 
+        appointments, 
+        fetchAppointments, 
+        loading, 
+        updateAppointmentStatus, 
+        deleteAppointment 
+      }}
     >
       {children}
     </AppContext.Provider>
