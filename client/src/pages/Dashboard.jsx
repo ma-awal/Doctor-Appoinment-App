@@ -26,7 +26,6 @@ import {
   FaUserInjured,
 } from "react-icons/fa";
 import CompleteVisitModal from "../components/CompleteVisitModal";
-import "./Dashboard.css";
 
 const Dashboard = () => {
   const {

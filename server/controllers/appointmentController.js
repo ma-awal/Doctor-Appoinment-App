@@ -1,11 +1,11 @@
-import Appointment from '../models/Appointment.js';
+import Appointment from "../models/Appointment.js";
 
 // @desc    Create new appointment (Business Ready)
 // @route   POST /api/appointments
 export const createAppointment = async (req, res) => {
   try {
- 
-    const { fullName, email, phone, age, gender, doctorName, date, reason } = req.body;
+    const { fullName, email, phone, age, gender, doctorName, date, reason } =
+      req.body;
 
     const appointment = await Appointment.create({
       fullName,
@@ -16,18 +16,19 @@ export const createAppointment = async (req, res) => {
       doctorName,
       date,
       reason,
-      status: 'Pending'  
+      status: "Pending",
     });
 
     res.status(201).json({
       success: true,
-      message: 'Appointment submitted successfully! Please wait for confirmation.',
+      message:
+        "Appointment submitted successfully! Please wait for confirmation.",
       data: appointment,
     });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: 'Booking failed. Please check all fields.',
+      message: "Booking failed. Please check all fields.",
       error: error.message,
     });
   }
@@ -38,9 +39,8 @@ export const createAppointment = async (req, res) => {
 export const getAppointments = async (req, res) => {
   try {
     let query = {};
-    
-  
-    if (req.user.role !== 'admin') {
+
+    if (req.user && req.user.role !== "admin") {
       query = { patientId: req.user.id };
     }
 
@@ -51,7 +51,7 @@ export const getAppointments = async (req, res) => {
   }
 };
 
-// @desc    Update appointment status (Confirm/Cancel) - 
+// @desc    Update appointment status (Confirm/Cancel) -
 // @route   PATCH /api/appointments/:id
 export const updateAppointmentStatus = async (req, res) => {
   try {
@@ -63,48 +63,57 @@ export const updateAppointmentStatus = async (req, res) => {
     );
 
     if (!appointment) {
-      return res.status(404).json({ success: false, message: "Appointment not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Appointment not found" });
     }
 
     res.status(200).json({
       success: true,
       message: `Appointment marked as ${status}`,
-      data: appointment
+      data: appointment,
     });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
 };
 
-// @desc    Delete appointment  
+// @desc    Delete appointment
 // @route   DELETE /api/appointments/:id
 export const deleteAppointment = async (req, res) => {
   try {
     await Appointment.findByIdAndDelete(req.params.id);
-    res.status(200).json({ success: true, message: "Appointment deleted successfully" });
+    res
+      .status(200)
+      .json({ success: true, message: "Appointment deleted successfully" });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
 };
 
-
 // @desc    Add Medical Record & Complete Appointment
 // @route   PATCH /api/appointments/complete/:id
 export const completeAppointment = async (req, res) => {
   try {
-    const { prescription, testReports, cost } = req.body;  
+    const { prescription, testReports, cost } = req.body;
     const appointment = await Appointment.findByIdAndUpdate(
       req.params.id,
-      { 
-        prescription, 
-        testReports, 
+      {
+        prescription,
+        testReports,
         cost,
-        status: 'Completed',
-        completedAt: new Date()
+        status: "Completed",
+        completedAt: new Date(),
       },
       { new: true }
     );
-    res.status(200).json({ success: true, message: "Visit completed & report added!", data: appointment });
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Visit completed & report added!",
+        data: appointment,
+      });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }

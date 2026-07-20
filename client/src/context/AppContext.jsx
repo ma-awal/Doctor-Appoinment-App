@@ -36,6 +36,7 @@ export const AppProvider = ({ children }) => {
   const fetchAppointments = async () => {
     setLoading(true);
     const token = localStorage.getItem("token");
+    if (!token) return;
     try {
       const response = await axios.get(API_URL, {
         headers: { Authorization: `Bearer ${token}` },
@@ -43,6 +44,7 @@ export const AppProvider = ({ children }) => {
       setAppointments(response.data.data);
     } catch (error) {
       console.error("Error fetching data", error);
+      if (error.response?.status === 401) logout();
     } finally {
       setLoading(false);
     }
