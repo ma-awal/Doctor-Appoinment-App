@@ -22,8 +22,6 @@ app.use(
   })
 );
 
-app.options("*", cors());
-
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -31,21 +29,21 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/api/auth", authRoutes);
+app.use("/api/appointments", appointmentRoutes);
+
 app.get("/api/test", (req, res) => {
   res
     .status(200)
     .json({ success: true, message: "CarePulse API is fully working!" });
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/appointments", appointmentRoutes);
-
 app.get("/", (req, res) => {
   res.status(200).send("CarePulse Server is Live and Working Fine!");
 });
 
 app.use((req, res) => {
-  res.status(404).json({ success: false, message: "Route not found" });
+  res.status(404).json({ success: false, message: "API Route not found" });
 });
 
 const PORT = process.env.PORT || 5000;
