@@ -2,35 +2,32 @@ import Appointment from "../models/Appointment.js";
 
 // @desc    Create new appointment (Business Ready)
 // @route   POST /api/appointments
-export const createAppointment = async (req, res) => {
-  try {
-    const { fullName, email, phone, age, gender, doctorName, date, reason } =
-      req.body;
+import jwt from "jsonwebtoken";
 
-    const appointment = await Appointment.create({
-      fullName,
-      email,
-      phone,
-      age,
-      gender,
-      doctorName,
-      date,
-      reason,
-      status: "Pending",
-    });
+export const protect = async (req, res, next) => {
+  const authHeader = req.headers.authorization || req.headers.Authorization;
 
-    res.status(201).json({
-      success: true,
-      message:
-        "Appointment submitted successfully! Please wait for confirmation.",
-      data: appointment,
-    });
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      message: "Booking failed. Please check all fields.",
-      error: error.message,
-    });
+  if (authHeader && authHeader.startsWith("Bearer")) {
+    try {
+      const token = authHeader.split(" ")[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+      req.user = decoded;
+      next();
+    } catch (error) {
+      console.error("JWT Verify Error:", error.message);
+      return res.status(401).json({ message: "Not authorized, token failed" });
+    }
+  } else {
+    return res.status(401).json({ message: "No token, authorization denied" });
+  }
+};
+
+export const adminOnly = (req, res, next) => {
+  if (req.user && req.user.role === "admin") {
+    next();
+  } else {
+    return res.status(403).json({ message: "Admin access only" });
   }
 };
 
@@ -107,13 +104,11 @@ export const completeAppointment = async (req, res) => {
       },
       { new: true }
     );
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Visit completed & report added!",
-        data: appointment,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Visit completed & report added!",
+      data: appointment,
+    });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
