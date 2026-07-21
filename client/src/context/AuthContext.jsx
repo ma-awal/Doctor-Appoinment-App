@@ -29,7 +29,9 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("user", JSON.stringify(res.data.user));
 
         toast.success("Login Successful!");
-        navigate("/dashboard");
+        navigate(
+          res.data.user.role === "admin" ? "/dashboard" : "/my-appointments"
+        );
       }
     } catch (err) {
       toast.error("Login failed. Check credentials.");
