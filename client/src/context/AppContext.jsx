@@ -13,7 +13,18 @@ export const AppProvider = ({ children }) => {
 
   const getAuthHeader = () => {
     const token = localStorage.getItem("token");
-    return { headers: { Authorization: `Bearer ${token}` } };
+
+    if (!token || token === "null" || token === "undefined") {
+      console.error("Token is missing in LocalStorage!");
+      return { headers: {} };
+    }
+
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
   };
 
   const bookAppointment = async (formData) => {

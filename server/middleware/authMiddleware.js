@@ -1,26 +1,28 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 export const protect = async (req, res, next) => {
-  let token = req.headers.authorization;
+  const authHeader = req.headers.authorization || req.headers.Authorization;
 
-  if (token && token.startsWith('Bearer')) {
+  if (authHeader && authHeader.startsWith("Bearer")) {
     try {
-      token = token.split(' ')[1];
+      const token = authHeader.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
       req.user = decoded;
       next();
     } catch (error) {
-      res.status(401).json({ message: "Not authorized, token failed" });
+      console.error("JWT Verify Error:", error.message);
+      return res.status(401).json({ message: "Not authorized, token failed" });
     }
   } else {
-    res.status(401).json({ message: "No token, authorization denied" });
+    return res.status(401).json({ message: "No token, authorization denied" });
   }
 };
 
 export const adminOnly = (req, res, next) => {
-  if (req.user && req.user.role === 'admin') {
+  if (req.user && req.user.role === "admin") {
     next();
   } else {
-    res.status(403).json({ message: "Admin access only" });
+    return res.status(403).json({ message: "Admin access only" });
   }
 };
