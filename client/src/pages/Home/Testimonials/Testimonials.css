@@ -1,0 +1,84 @@
+.testimonials-modern-section {
+    position: relative;
+    background-color: #fcfdfe;
+    overflow: hidden;
+}
+
+/* --- Abstract Ambient Background --- */
+.testimonial-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.04) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* --- Card Styling (No Images) --- */
+.testimonial-card-premium {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    position: relative;
+    height: 100%;
+    transition: all 0.4s ease;
+    margin: 15px 0; /* স্লাইডারের ভেতরে গ্যাপের জন্য */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+}
+
+.testimonial-card-premium:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.08);
+}
+
+.quote-icon-box {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    font-size: 2.5rem;
+    color: rgba(37, 99, 235, 0.1); /* খুব হালকা কোট আইকন */
+    transition: color 0.3s ease;
+}
+
+.testimonial-card-premium:hover .quote-icon-box {
+    color: rgba(37, 99, 235, 0.2);
+}
+
+.testimonial-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #475569;
+    font-style: italic;
+    min-height: 100px;
+}
+
+.rating-row {
+    font-size: 0.85rem;
+}
+
+/* --- Swiper Dots Styling --- */
+.swiper-pagination-bullet {
+    background: #cbd5e1;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: #2563eb;
+    width: 25px;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+/* Responsive fixes */
+@media (max-width: 767px) {
+    .testimonial-card-premium {
+        padding: 30px 20px;
+        text-align: center;
+    }
+    .quote-icon-box {
+        display: none;
+    }
+}

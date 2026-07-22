@@ -1,0 +1,128 @@
+.team-section-wrapper {
+    position: relative;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+
+/* --- Ambient Background Soft Spreads --- */
+.team-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    filter: blur(150px);
+    z-index: 1;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.glow-1 {
+    top: -10%; left: -10%;
+    background: radial-gradient(circle, #2563eb 0%, transparent 70%);
+}
+
+.glow-2 {
+    bottom: -10%; right: -5%;
+    background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+}
+
+/* --- Team Card Logic --- */
+.team-card-container {
+    position: relative;
+    z-index: 5;
+    transition: transform 0.4s ease;
+}
+
+.team-img-frame {
+    position: relative;
+    height: 400px;
+    border-radius: 35px;
+    overflow: hidden;
+    background: #f8fafc;
+    border: 8px solid white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.doctor-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+/* Floating Badge */
+.exp-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1e293b;
+    z-index: 10;
+}
+
+/* Social Overlay */
+.team-social-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(37, 99, 235, 0.8), transparent);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 30px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.social-icons-box {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons-box a {
+    width: 40px; height: 40px;
+    background: white;
+    color: #2563eb;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.social-icons-box a:hover {
+    background: #0f172a;
+    color: white;
+    transform: translateY(-5px);
+}
+
+/* Hover Effects */
+.team-card-container:hover {
+    transform: translateY(-10px);
+}
+
+.team-card-container:hover .doctor-image {
+    transform: scale(1.1);
+}
+
+.team-card-container:hover .team-social-overlay {
+    opacity: 1;
+}
+
+/* Specific Frame Colors */
+.frame-blue { border-bottom: 8px solid #2563eb; }
+.frame-indigo { border-bottom: 8px solid #6366f1; }
+.frame-teal { border-bottom: 8px solid #14b8a6; }
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    .team-img-frame { height: 350px; }
+}
+
+@media (max-width: 575px) {
+    .team-section-wrapper { padding: 40px 0; }
+    .team-img-frame { height: 380px; }
+}

@@ -1,0 +1,146 @@
+.hero-modern-section {
+    position: relative;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+    overflow: hidden;
+}
+
+.min-vh-90 {
+    min-height: 90vh;
+}
+
+/* Background Glow Effect */
+.bg-glow {
+    position: absolute;
+    top: -10%; right: -5%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+    z-index: 1;
+}
+
+.z-index-10 { position: relative; z-index: 10; }
+
+/* Typography */
+.hero-main-title {
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #0f172a;
+    font-family: 'Playfair Display', serif;
+}
+
+.text-gradient {
+    background: linear-gradient(to right, #2563eb, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-sub-text {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #64748b;
+    max-width: 520px;
+}
+
+/* Badges & Rating */
+.trust-badge {
+    display: inline-flex;
+    align-items: center;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 100px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.rating-stars { color: #f59e0b; font-size: 0.8rem; }
+
+/* Buttons */
+.btn-modern-primary {
+    background: #2563eb;
+    border: none;
+    padding: 16px 35px;
+    border-radius: 15px;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-modern-primary:hover {
+    background: #1d4ed8;
+    transform: translateY(-3px);
+}
+
+.btn-modern-outline {
+    border: 2px solid #e2e8f0;
+    padding: 16px 35px;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+/* Image Wrapper & Visuals */
+.hero-visual-wrapper {
+    position: relative;
+    padding: 40px;
+}
+
+.image-card-main {
+    border-radius: 40px;
+    background: white;
+    padding: 15px;
+    border: 1px solid rgba(255,255,255,0.8);
+}
+
+.rounded-custom {
+    border-radius: 30px;
+    width: 100%;
+}
+
+/* Floating Cards Styling */
+.floating-card {
+    position: absolute;
+    background: white;
+    padding: 15px 25px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 20;
+}
+
+.icon-circle {
+    width: 45px; height: 45px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.card-support {
+    top: 15%; left: -5%;
+}
+
+.card-doctor {
+    bottom: 10%; right: -5%;
+}
+
+/* Animations */
+.animate-float-slow {
+    animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-float-fast {
+    animation: floatSlow 4s ease-in-out infinite reverse;
+}
+
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Mobile Fixes */
+@media (max-width: 991px) {
+    .hero-main-title { text-align: center; font-size: 2.8rem; }
+    .hero-sub-text { text-align: center; margin: 0 auto; }
+    .floating-card { display: none; }
+    .d-flex { justify-content: center; }
+}

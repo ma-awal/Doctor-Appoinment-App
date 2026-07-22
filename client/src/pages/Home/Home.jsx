@@ -1,38 +1,24 @@
 import React from "react";
-import Hero from "./Hero";
-import Specialties from "./Specialties";
-import Process from "./Process";
+import Hero from "./Hero/Hero";
+ 
+import Specialties from "./Specialties/Specialties";
+import Process from "./Process/Process";
 import CTA from "./CTA"; // Create a simple CTA card similarly
 import "./Home.css";
 import { Container, Row, Col } from "react-bootstrap";
+import Stats from "./Stats/Stats";
+import Team from "./Team/Team";
+import Testimonials from "./Testimonials/Testimonials";
 
 const Home = () => {
   return (
     <main className="home-main fade-in">
       <Hero />
-
-      {/* Quick Stats Bar */}
-      <section className="py-5 bg-white shadow-sm border-bottom">
-        <Container>
-          <Row className="text-center g-4">
-            <Col md={4}>
-              <h2 className="fw-bold text-primary mb-0">15k+</h2>
-              <p className="text-muted mb-0">Happy Patients</p>
-            </Col>
-            <Col md={4}>
-              <h2 className="fw-bold text-primary mb-0">80+</h2>
-              <p className="text-muted mb-0">Verified Doctors</p>
-            </Col>
-            <Col md={4}>
-              <h2 className="fw-bold text-primary mb-0">24/7</h2>
-              <p className="text-muted mb-0">Support</p>
-            </Col>
-          </Row>
-        </Container>
-      </section>
-
+      <Stats/>
       <Specialties />
       <Process />
+      <Team/>
+      <Testimonials/>
       <CTA />
       {/* Simple CTA integrated */}
       {/* <section className="py-5 my-5">
