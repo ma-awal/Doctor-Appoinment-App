@@ -1,0 +1,74 @@
+/* --- Premium Overlay Hero --- */
+.about-hero-overlay-section {
+    position: relative;
+    height: 75vh;  
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+  
+    background: url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2000') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed; /* Parallax effect */
+    overflow: hidden;
+}
+
+ 
+.hero-overlay-tint {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.4) 100%);
+    z-index: 1;
+}
+
+.z-index-10 { position: relative; z-index: 10; }
+
+.hero-title-large {
+    line-height: 1.1;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.text-accent-blue {
+    color: #60a5fa;  
+}
+
+.divider-line-gold {
+    width: 60px;
+    height: 3px;
+    background: #60a5fa;
+    border-radius: 10px;
+}
+
+.hero-description-text {
+    max-width: 700px;
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+/* Animation */
+.fade-in-up {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* নিচের কার্ভ ডিজাইন */
+.hero-bottom-curve {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: #f8fafc;  
+    clip-path: ellipse(70% 100% at 50% 100%);
+    z-index: 5;
+}
+
+/* Responsive Fixes */
+@media (max-width: 991px) {
+    .about-hero-overlay-section { height: 60vh; background-attachment: scroll; }
+    .hero-title-large { font-size: 3rem; }
+    .hero-description-text { font-size: 1rem; }
+}

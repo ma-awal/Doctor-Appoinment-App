@@ -1,0 +1,81 @@
+/* --- Values Section Modern Styling --- */
+.values-premium-section {
+    background-color: #fcfdfe;
+    position: relative;
+}
+
+.ls-2 { letter-spacing: 2px; }
+
+.title-divider-custom {
+    width: 60px;
+    height: 4px;
+    background: #2563eb;
+    border-radius: 10px;
+}
+
+/* --- The Modern Card --- */
+.value-modern-card {
+    border-radius: 35px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #ffffff;
+    z-index: 1;
+}
+
+.value-modern-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.06) !important;
+}
+
+/* Icon Styling */
+.value-icon-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    transition: all 0.4s ease;
+}
+
+.value-modern-card:hover .value-icon-circle {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Watermark Number Styling   */
+.value-number-watermark {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-size: 7rem;
+    font-weight: 900;
+    font-family: 'Montserrat', sans-serif;
+    color: rgba(0, 0, 0, 0.03);  
+    user-select: none;
+    z-index: -1;
+}
+
+/* Bottom Accent Bar */
+.value-bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    width: 70%;
+    height: 4px;
+    border-radius: 10px 10px 0 0;
+    opacity: 0.3;
+    transition: all 0.4s ease;
+}
+
+.value-modern-card:hover .value-bottom-bar {
+    width: 100%;
+    left: 0;
+    opacity: 1;
+}
+
+/* Responsive fix */
+@media (max-width: 991px) {
+    .value-number-watermark { font-size: 5rem; }
+    .value-modern-card { text-align: center; }
+    .value-icon-circle { margin: 0 auto 1.5rem; }
+}

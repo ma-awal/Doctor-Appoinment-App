@@ -1,0 +1,64 @@
+/* --- Mission Section Specifics --- */
+.mission-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.rounded-custom-2 {
+    border-radius: 40px;
+}
+
+/* Image Framing */
+.mission-img-wrapper {
+    position: relative;
+    padding-right: 50px;
+    padding-bottom: 50px;
+}
+
+.mission-main-frame {
+    border: 15px solid white;
+    border-radius: 55px;
+    overflow: hidden;
+    background: white;
+}
+
+.mission-floating-card {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    min-width: 150px;
+}
+
+/* Typography Details */
+.line-short {
+    width: 40px;
+    height: 3px;
+    background: #2563eb;
+    border-radius: 5px;
+}
+
+.mission-lead {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.ls-2 { letter-spacing: 2px; }
+
+/* Animations */
+.animate-float-slow {
+    animation: floatEffect 5s ease-in-out infinite;
+}
+
+@keyframes floatEffect {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+/* Responsive fix */
+@media (max-width: 991px) {
+    .mission-img-wrapper { padding: 0; margin-bottom: 50px; }
+    .mission-main-frame { border-radius: 30px; border-width: 8px; }
+    .display-4 { font-size: 2.5rem; }
+    .mission-floating-card { display: none; } 
+}
