@@ -34,7 +34,7 @@ const Hero = () => (
             <Button as={Link} to="/contact" className="btn-modern-primary shadow-blue">
               <FaCalendarPlus className="me-2" /> Book Appointment
             </Button>
-            <Button variant="outline-dark" className="btn-modern-outline">
+            <Button   href="#expert-team"  variant="outline-dark" className="btn-modern-outline">
               Explore Our Doctors
             </Button>
           </div>

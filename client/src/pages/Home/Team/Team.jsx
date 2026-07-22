@@ -30,7 +30,7 @@ const Team = () => {
         }
       ];
   return (
-    <section className="team-section-wrapper py-5">
+    <section id="expert-team"  className="team-section-wrapper py-5">
       {/* --- Ambient Background Glows --- */}
       <div className="team-glow glow-1"></div>
       <div className="team-glow glow-2"></div>
