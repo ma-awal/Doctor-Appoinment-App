@@ -1,3 +1,46 @@
+// import User from '../models/User.js';
+// import bcrypt from 'bcryptjs';
+// import jwt from 'jsonwebtoken';
+
+// // @desc    Register User
+// export const registerUser = async (req, res) => {
+//   try {
+//     const { name, email, password, role } = req.body;
+//     const userExists = await User.findOne({ email });
+
+//     if (userExists) return res.status(400).json({ message: "User already exists" });
+
+//     const hashedPassword = await bcrypt.hash(password, 10);
+//     const user = await User.create({ name, email, password: hashedPassword, role });
+
+//     res.status(201).json({ success: true, message: "Registration successful!" });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
+// // @desc    Login User
+// export const loginUser = async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+//     const user = await User.findOne({ email });
+
+//     if (user && (await bcrypt.compare(password, user.password))) {
+//       const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '30d' });
+      
+//       res.json({
+//         success: true,
+//         token,
+//         user: { id: user._id, name: user.name, email: user.email, role: user.role }
+//       });
+//     } else {
+//       res.status(401).json({ message: "Invalid email or password" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -5,13 +48,19 @@ import jwt from 'jsonwebtoken';
 // @desc    Register User
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, phone } = req.body; // role no longer accepted from client
     const userExists = await User.findOne({ email });
 
     if (userExists) return res.status(400).json({ message: "User already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ name, email, password: hashedPassword, role });
+    const user = await User.create({
+      name,
+      email,
+      phone,
+      password: hashedPassword,
+      role: "patient", // always patient on public signup — never trust client input for this
+    });
 
     res.status(201).json({ success: true, message: "Registration successful!" });
   } catch (error) {
