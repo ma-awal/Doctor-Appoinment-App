@@ -1,18 +1,105 @@
-import { Container, Row, Col, Button, Badge } from "react-bootstrap";
+// import { Container, Row, Col, Button, Badge } from "react-bootstrap";
+// import { Link } from "react-router-dom";
+// import { FaCheckCircle, FaStar, FaUserMd, FaCalendarPlus } from "react-icons/fa";
+// import "./Hero.css";
+
+// const Hero = () => (
+//   <section className="hero-modern-section">
+//     {/* ব্যাকগ্রাউন্ড ডেকোরেশন */}
+//     <div className="bg-glow"></div>
+    
+//     <Container>
+//       <Row className="align-items-center min-vh-90 py-5">
+//         {/* বাম পাশ: কন্টেন্ট */}
+//         <Col lg={6} className="text-start z-index-10">
+//           <div className="trust-badge animate__animated animate__fadeInDown">
+//             <div className="rating-stars me-2">
+//               <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+//             </div>
+//             <span>Trusted by 20,000+ happy patients</span>
+//           </div>
+
+//           <h1 className="hero-main-title mt-3">
+//             Premium Healthcare <br />
+//             <span className="text-gradient">Simplified for You.</span>
+//           </h1>
+
+//           <p className="hero-sub-text my-4 pe-lg-5">
+//             Connect with board-certified specialists within minutes. We provide 
+//             seamless scheduling, digital records, and 24/7 care support for a 
+//             healthier lifestyle.
+//           </p>
+
+//           <div className="d-flex flex-wrap gap-3 mt-5">
+//             <Button as={Link} to="/contact" className="btn-modern-primary shadow-blue">
+//               <FaCalendarPlus className="me-2" /> Book Appointment
+//             </Button>
+//             <Button   href="#expert-team"  variant="outline-dark" className="btn-modern-outline">
+//               Explore Our Doctors
+//             </Button>
+//           </div>
+
+//           <div className="stats-mini-row mt-5 d-flex gap-4">
+//             <div><span className="d-block fw-bold h4 mb-0">99%</span><small className="text-muted">Success Rate</small></div>
+//             <div className="border-start ps-4">
+//               <span className="d-block fw-bold h4 mb-0">15+</span><small className="text-muted">Specialties</small>
+//             </div>
+//           </div>
+//         </Col>
+
+//         {/* ডান পাশ: রিয়েলিস্টিক ইমেজ ও কার্ডস */}
+//         <Col lg={6} className="mt-5 mt-lg-0 position-relative">
+//           <div className="hero-visual-wrapper">
+//             {/* ডক্টর ইমেজ */}
+//             <div className="image-card-main shadow-2xl">
+//               <img
+//                 src="https://img.freepik.com/free-photo/doctor-offering-medical-tele-consultation_23-2149329007.jpg"
+//                 alt="Healthcare Professional"
+//                 className="img-fluid rounded-custom"
+//               />
+//             </div>
+
+//             {/* ফ্লোটিং কার্ড ১: লাইভ সাপোর্ট */}
+//             <div className="floating-card card-support shadow-lg animate-float-slow">
+//               <div className="icon-circle bg-success"><FaCheckCircle /></div>
+//               <div>
+//                 <h6 className="mb-0 fw-bold">Live Support</h6>
+//                 <small className="text-muted">Experts online now</small>
+//               </div>
+//             </div>
+
+//             {/* ফ্লোটিং কার্ড ২: ডাক্তার প্রোফাইল */}
+//             <div className="floating-card card-doctor shadow-lg animate-float-fast">
+//               <div className="icon-circle bg-primary"><FaUserMd /></div>
+//               <div>
+//                 <h6 className="mb-0 fw-bold">Verified MDs</h6>
+//                 <small className="text-muted">Top Rated Experts</small>
+//               </div>
+//             </div>
+//           </div>
+//         </Col>
+//       </Row>
+//     </Container>
+//   </section>
+// );
+
+// export default Hero;
+
+
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FaCheckCircle, FaStar, FaUserMd, FaCalendarPlus } from "react-icons/fa";
 import "./Hero.css";
 
 const Hero = () => (
   <section className="hero-modern-section">
-    {/* ব্যাকগ্রাউন্ড ডেকোরেশন */}
     <div className="bg-glow"></div>
     
     <Container>
-      <Row className="align-items-center min-vh-90 py-5">
-        {/* বাম পাশ: কন্টেন্ট */}
-        <Col lg={6} className="text-start z-index-10">
-          <div className="trust-badge animate__animated animate__fadeInDown">
+      <Row className="align-items-center min-vh-90">
+        {/* বাম পাশ: কন্টেন্ট (আগের মতোই আছে) */}
+        <Col lg={6} className="text-start z-index-10 py-5">
+          <div className="trust-badge">
             <div className="rating-stars me-2">
               <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
             </div>
@@ -26,56 +113,50 @@ const Hero = () => (
 
           <p className="hero-sub-text my-4 pe-lg-5">
             Connect with board-certified specialists within minutes. We provide 
-            seamless scheduling, digital records, and 24/7 care support for a 
-            healthier lifestyle.
+            seamless scheduling, digital records, and 24/7 care support.
           </p>
 
-          <div className="d-flex flex-wrap gap-3 mt-5">
+          <div className="d-flex flex-wrap gap-3 mt-4">
             <Button as={Link} to="/contact" className="btn-modern-primary shadow-blue">
               <FaCalendarPlus className="me-2" /> Book Appointment
             </Button>
-            <Button   href="#expert-team"  variant="outline-dark" className="btn-modern-outline">
+            <Button href="#expert-team" variant="outline-dark" className="btn-modern-outline">
               Explore Our Doctors
             </Button>
           </div>
 
           <div className="stats-mini-row mt-5 d-flex gap-4">
-            <div><span className="d-block fw-bold h4 mb-0">99%</span><small className="text-muted">Success Rate</small></div>
+            <div><span className="d-block fw-bold h4 mb-0 text-dark">99%</span><small className="text-muted">Success Rate</small></div>
             <div className="border-start ps-4">
-              <span className="d-block fw-bold h4 mb-0">15+</span><small className="text-muted">Specialties</small>
+              <span className="d-block fw-bold h4 mb-0 text-dark">15+</span><small className="text-muted">Specialties</small>
             </div>
           </div>
         </Col>
 
-        {/* ডান পাশ: রিয়েলিস্টিক ইমেজ ও কার্ডস */}
-        <Col lg={6} className="mt-5 mt-lg-0 position-relative">
-          <div className="hero-visual-wrapper">
-            {/* ডক্টর ইমেজ */}
-            <div className="image-card-main shadow-2xl">
+        
+        <Col lg={6} className="position-relative d-flex justify-content-center align-items-center">
+          <div className="hero-visual-container">
+            
+         
+            <div className="main-image-frame shadow-2xl">
               <img
-                src="https://img.freepik.com/free-photo/doctor-offering-medical-tele-consultation_23-2149329007.jpg"
-                alt="Healthcare Professional"
-                className="img-fluid rounded-custom"
+                src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1000"  
+                alt="Doctor Specialist"
+                className="doctor-portrait-img"
               />
             </div>
 
-            {/* ফ্লোটিং কার্ড ১: লাইভ সাপোর্ট */}
-            <div className="floating-card card-support shadow-lg animate-float-slow">
-              <div className="icon-circle bg-success"><FaCheckCircle /></div>
-              <div>
-                <h6 className="mb-0 fw-bold">Live Support</h6>
-                <small className="text-muted">Experts online now</small>
-              </div>
+             
+            <div className="floating-card-new card-top shadow-lg">
+              <div className="icon-circle-sm bg-success"><FaCheckCircle /></div>
+              <div><h6 className="mb-0 fw-bold small">Live Support</h6><small className="text-muted x-small">24/7 Online</small></div>
             </div>
 
-            {/* ফ্লোটিং কার্ড ২: ডাক্তার প্রোফাইল */}
-            <div className="floating-card card-doctor shadow-lg animate-float-fast">
-              <div className="icon-circle bg-primary"><FaUserMd /></div>
-              <div>
-                <h6 className="mb-0 fw-bold">Verified MDs</h6>
-                <small className="text-muted">Top Rated Experts</small>
-              </div>
+            <div className="floating-card-new card-bottom shadow-lg">
+              <div className="icon-circle-sm bg-primary"><FaUserMd /></div>
+              <div><h6 className="mb-0 fw-bold small">Verified MDs</h6><small className="text-muted x-small">Top Specialists</small></div>
             </div>
+
           </div>
         </Col>
       </Row>

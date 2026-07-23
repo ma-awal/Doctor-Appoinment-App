@@ -1,146 +1,93 @@
 .hero-modern-section {
     position: relative;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+    background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
     overflow: hidden;
+    padding-top: 20px;
 }
 
-.min-vh-90 {
-    min-height: 90vh;
-}
-
-/* Background Glow Effect */
-.bg-glow {
-    position: absolute;
-    top: -10%; right: -5%;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
-    z-index: 1;
-}
-
+.min-vh-90 { min-height: 90vh; }
 .z-index-10 { position: relative; z-index: 10; }
 
-/* Typography */
+/* --- Typography (Same as before) --- */
 .hero-main-title {
-    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.15;
     color: #0f172a;
     font-family: 'Playfair Display', serif;
 }
-
 .text-gradient {
     background: linear-gradient(to right, #2563eb, #6366f1);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.hero-sub-text {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: #64748b;
-    max-width: 520px;
-}
-
-/* Badges & Rating */
-.trust-badge {
-    display: inline-flex;
-    align-items: center;
-    background: white;
-    padding: 10px 20px;
-    border-radius: 100px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-.rating-stars { color: #f59e0b; font-size: 0.8rem; }
-
-/* Buttons */
-.btn-modern-primary {
-    background: #2563eb;
-    border: none;
-    padding: 16px 35px;
-    border-radius: 15px;
-    font-weight: 700;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-modern-primary:hover {
-    background: #1d4ed8;
-    transform: translateY(-3px);
-}
-
-.btn-modern-outline {
-    border: 2px solid #e2e8f0;
-    padding: 16px 35px;
-    border-radius: 15px;
-    font-weight: 600;
-}
-
-/* Image Wrapper & Visuals */
-.hero-visual-wrapper {
+/* --- Image Card Perfect Fix --- */
+.hero-visual-container {
     position: relative;
-    padding: 40px;
+    width: 100%;
+    max-width: 480px;  
+    padding: 20px;
 }
 
-.image-card-main {
+.main-image-frame {
+    width: 100%;
+  
+    aspect-ratio: 4 / 5; 
     border-radius: 40px;
     background: white;
-    padding: 15px;
-    border: 1px solid rgba(255,255,255,0.8);
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.6);
+    overflow: hidden;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.1);
 }
 
-.rounded-custom {
-    border-radius: 30px;
+.doctor-portrait-img {
     width: 100%;
+    height: 100%;
+   
+    object-fit: cover; 
+    object-position: top;
+    border-radius: 30px;
 }
 
-/* Floating Cards Styling */
-.floating-card {
+/* --- Floating Cards (Updated Positioning) --- */
+.floating-card-new {
     position: absolute;
     background: white;
-    padding: 15px 25px;
+    padding: 12px 20px;
     border-radius: 20px;
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
     z-index: 20;
+    min-width: 160px;
 }
 
-.icon-circle {
-    width: 45px; height: 45px;
+.card-top { top: 10%; left: -10%; animation: floatSlow 5s ease-in-out infinite; }
+.card-bottom { bottom: 10%; right: -5%; animation: floatSlow 5s ease-in-out infinite reverse; }
+
+.icon-circle-sm {
+    width: 35px; height: 35px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     color: white;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
 }
 
-.card-support {
-    top: 15%; left: -5%;
-}
+.x-small { font-size: 0.7rem; }
 
-.card-doctor {
-    bottom: 10%; right: -5%;
-}
-
-/* Animations */
-.animate-float-slow {
-    animation: floatSlow 6s ease-in-out infinite;
-}
-
-.animate-float-fast {
-    animation: floatSlow 4s ease-in-out infinite reverse;
-}
-
+/* --- Animations --- */
 @keyframes floatSlow {
     0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+    50% { transform: translateY(-15px); }
 }
 
-/* Mobile Fixes */
+/* --- Mobile Responsive Fix --- */
 @media (max-width: 991px) {
-    .hero-main-title { text-align: center; font-size: 2.8rem; }
+    .hero-main-title { text-align: center; }
     .hero-sub-text { text-align: center; margin: 0 auto; }
-    .floating-card { display: none; }
     .d-flex { justify-content: center; }
+    .hero-visual-container { max-width: 350px; margin-top: 30px; }
+    .floating-card-new { display: none; }  
 }
